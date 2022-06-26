@@ -11,8 +11,8 @@ logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[Ric
 
 logger = logging.getLogger(__name__)
 
-source_image_path = './assets/source.png'
-reference_video_path = './assets/driving.mp4'
+source_image_path = "./assets/source.png"
+reference_video_path = "./assets/driving.mp4"
 
 
 class ModelDemo(ServeGradio):
@@ -24,7 +24,6 @@ class ModelDemo(ServeGradio):
 
     inputs = [gr.inputs.Image(), gr.inputs.Video()]
     outputs = gr.outputs.Video()
-    debug = True
     enable_queue = False
     examples = [[source_image_path, reference_video_path]]
 

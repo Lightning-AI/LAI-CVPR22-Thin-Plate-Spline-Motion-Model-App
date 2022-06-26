@@ -383,6 +383,7 @@ data/
 .shared
 *.pt
 *.tar.gz
+*.tar
 *.pth
 .DS_Store
 *.zip

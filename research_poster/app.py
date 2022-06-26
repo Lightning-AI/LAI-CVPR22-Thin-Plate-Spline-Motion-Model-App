@@ -113,7 +113,7 @@ class ResearchApp(L.LightningFlow):
             tabs.append({"name": "Training Logs", "content": self.training_logs})
 
         if self.model_demo:
-            tabs.append({"name": "Model Demo: Unsplash Image Search", "content": self.model_demo.url})
+            tabs.append({"name": "Model Demo", "content": self.model_demo.url})
 
         if self.jupyter_lab:
             tabs.append({"name": "Jupyter Lab", "content": self.jupyter_lab.url})
@@ -135,18 +135,18 @@ class ResearchApp(L.LightningFlow):
 
 
 if __name__ == "__main__":
-    poster_dir = "research_poster/resources"
-    paper = "https://arxiv.org/pdf/2103.00020"
-    tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo: Unsplash Image Search"]
+    poster_dir = "resources"
+    paper = "https://arxiv.org/abs/2203.14367"
+    tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo"]
 
     app = L.LightningApp(
         ResearchApp(
             poster_dir=poster_dir,
             paper=paper,
-            notebook_path="demo.ipynb",
+            notebook_path="resources/demo.ipynb",
             launch_gradio=True,
             tab_order=tabs,
             launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
         ),
-        debug=True
+        debug=True,
     )
