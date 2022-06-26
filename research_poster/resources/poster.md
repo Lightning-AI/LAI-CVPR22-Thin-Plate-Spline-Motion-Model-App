@@ -3,8 +3,8 @@
 <img src="https://cdn.iconscout.com/icon/free/png-256/openai-1524384-1290687.png" width="100px">
 </div>
 <div style="flex: 0 0 65%; text-align: center;">
-<h1 style="margin-bottom: 10pt;">Demo: CLIP Research Poster</h1>
-<h2>A demo of CLIP research paper using Lightning App</h2>
+<h1 style="margin-bottom: 10pt;">Demo: Thin-Plate Spline Motion Model for Image Animation</h1>
+<h2>A Research Poster demo using Lightning App</h2>
 </div>
 <div style="flex: 1">
     <div style="display: flex; align-items: center;">
@@ -19,9 +19,13 @@
 
 --split--
 
-# Natural Language based Image Search
+# Thin-Plate Spline Motion Model for Image Animation
 
-## OpenAI introduced a neural network called CLIP which efficiently learns visual concepts from natural language supervision.
+## Image animation transfers the motion of the object in the driving video to the static object in the source image
+
+Our (Author's) method can animate a variety of objects, including
+talking faces, human bodies, and pixel animations. Experiments demonstrate that our method performs better on most
+benchmarks than the state of the art with visible improvements in motion-related metrics
 
 This app is a demo
 of [Lightning Research Template app](https://github.com/Lightning-AI/lightning-template-research-app) which allows
@@ -31,17 +35,9 @@ Explore the tabs at the top of this app to view blog, paper, training logs and m
 
 You can fork this app and edit to customize according to your need.
 
-Kudos to Soumik Rakshit and Manan Goel for their awesome
-repository [clip-lightning](https://github.com/soumik12345/clip-lightning)
 
-Thanks to [Vivien](https://github.com/vivien000) for his inspiring application using
-CLIP [Minimal user-friendly demo of OpenAI's CLIP for semantic image search](https://github.com/vivien000/clip-demo).
+<img src="https://github.com/yoyo-nb/Thin-Plate-Spline-Motion-Model/raw/main/assets/vox.gif">
 
-<img src="https://openaiassets.blob.core.windows.net/$web/clip/draft/20210104b/overview-a.svg">
-
-CLIP pre-trains an image encoder and a text encoder to predict which images were paired with which texts in our dataset.
-We then use this behavior to turn CLIP into a zero-shot classifier. We convert all of a dataset's classes into captions
-such as "a photo of a dog" and predict the class of the caption CLIP estimates best pairs with a given image.
 
 --split--
 
@@ -69,22 +65,22 @@ graph LR
 ```python
 import lightning as L
 
-paper = "https://arxiv.org/pdf/2103.00020.pdf"
-blog = "https://openai.com/blog/clip/"
-github = "https://github.com/soumik12345/clip-lightning/tree/AddModelCheckpoint"
-wandb = "https://wandb.ai/manan-goel/clip-lightning-image_retrieval/runs/1cedtohj"
+poster_dir = "resources"
+paper = "https://arxiv.org/pdf/2203.14367.pdf"
+tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo"]
 
 app = L.LightningApp(
     ResearchApp(
-        resource_path="resources",
+        poster_dir=poster_dir,
         paper=paper,
-        blog=blog,
-        training_log_url=wandb,
-        github=github,
-        notebook_path="resources/Interacting_with_CLIP.ipynb",
+        notebook_path="resources/demo.ipynb",
         launch_gradio=True,
-    )
+        tab_order=tabs,
+        launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
+    ),
+    debug=True,
 )
+
 ```
 
 ### Citation

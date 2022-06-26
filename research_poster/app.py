@@ -136,7 +136,7 @@ class ResearchApp(L.LightningFlow):
 
 if __name__ == "__main__":
     poster_dir = "resources"
-    paper = "https://arxiv.org/abs/2203.14367"
+    paper = "https://arxiv.org/pdf/2203.14367.pdf"
     tabs = ["Blog", "Paper", "Poster", "Notebook Viewer", "Training Logs", "Model Demo"]
 
     app = L.LightningApp(
