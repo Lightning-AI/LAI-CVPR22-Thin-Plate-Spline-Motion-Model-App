@@ -147,5 +147,6 @@ if __name__ == "__main__":
             launch_gradio=True,
             tab_order=tabs,
             launch_jupyter_lab=False,  # don't launch for public app, can expose to security vulnerability
-        )
+        ),
+        debug=True
     )

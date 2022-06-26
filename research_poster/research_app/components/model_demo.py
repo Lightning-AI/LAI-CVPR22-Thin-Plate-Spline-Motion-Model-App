@@ -22,9 +22,10 @@ class ModelDemo(ServeGradio):
     automatically launch the Gradio interface.
     """
 
-    inputs = [gr.inputs.Textbox(), gr.inputs.Textbox()]
-    outputs = gr.outputs.HTML(label="Images from Unsplash")
-    enable_queue = True
+    inputs = [gr.inputs.Image(), gr.inputs.Video()]
+    outputs = gr.outputs.Video()
+    debug = True
+    enable_queue = False
     examples = [[source_image_path, reference_video_path]]
 
     def __init__(self):

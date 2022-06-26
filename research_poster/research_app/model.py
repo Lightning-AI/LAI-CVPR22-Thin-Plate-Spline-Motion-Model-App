@@ -7,18 +7,20 @@ import urllib
 
 sys.path.append("./")
 import imageio
+
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from IPython.display import HTML
 from rich import print
 from skimage import img_as_ubyte
 from skimage.transform import resize
 
 from demo import load_checkpoints
 from demo import make_animation
+import logging
 
+logger = logging.getLogger(__name__)
 # edit the config
 device = torch.device('cuda:0') if torch.cuda.is_available() else "cpu"
 dataset_name = 'vox'  # ['vox', 'taichi', 'ted', 'mgif']
@@ -65,10 +67,9 @@ class Model:
             config_path=config_path,
             checkpoint_path=checkpoint_path, device=device)
 
-    def predict(self, source_image_path, reference_video_path):
-        source_image = imageio.imread(source_image_path)
-        reader = imageio.get_reader(reference_video_path)
+    def predict(self, source_image, driving_video):
         source_image = resize(source_image, (pixel, pixel))[..., :3]
+        reader = imageio.get_reader(driving_video)
         fps = reader.get_meta_data()['fps']
         driving_video = []
         try:
@@ -77,8 +78,11 @@ class Model:
         except RuntimeError:
             pass
         reader.close()
+        logger.debug("reader closed")
 
         driving_video = [resize(frame, (pixel, pixel))[..., :3] for frame in driving_video]
+
+        logger.debug("creating prediction")
 
         if predict_mode == 'relative' and find_best_frame:
             from demo import find_best_frame as _find
@@ -97,6 +101,6 @@ class Model:
                 self.avd_network, device=device, mode=predict_mode)
 
         # save resulting video
+        logger.debug("save result video")
         imageio.mimsave(output_video_path, [img_as_ubyte(frame) for frame in predictions], fps=fps)
-
-        return HTML(display(source_image, driving_video, predictions).to_html5_video())
+        return output_video_path
